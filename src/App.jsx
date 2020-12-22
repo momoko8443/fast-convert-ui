@@ -1,8 +1,10 @@
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import RedirectTo from './components/RedirectTo';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import useToken from './hooks/useToken';
+import iamService from './services/iamService';
 function Home() {
   return <h2>Home</h2>;
 }
@@ -17,8 +19,10 @@ function App() {
   const {token, setToken} = useToken();
 
   if(!token) {
+    const iamLoginURL = "https://www.baidu.com";//iamService.loginURL();
+
     return (
-      <Redirect to="https://www.baidu.com" />
+        <RedirectTo url={iamLoginURL} />
     )
   }
   return (

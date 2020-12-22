@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const login = function() {
+const loginURL = function() {
     var iamUrl = process.env.REACT_APP_IAM_URL;
     iamUrl += "?client_id=";
     iamUrl += process.env.REACT_APP_IAM_CLIENT_ID;
@@ -10,7 +10,8 @@ const login = function() {
     iamUrl += process.env.REACT_APP_IAM_RESPONSE_TYPE;
 
     console.info("redirect to iam service url=" + iamUrl);
-    window.location.href = iamUrl;
+    //window.location.href = iamUrl;
+    return loginURL;
 }
 
 const logout = function(access_token) {
@@ -56,7 +57,7 @@ const checkToken = function(access_token) {
 }
 
 export default {
-    login,
+    loginURL,
     logout,
     checkToken
 }
