@@ -30,7 +30,10 @@ html,body{
 
 
 .srHeader{
-  border: 1px red solid;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .srHeader>h2{
@@ -39,6 +42,9 @@ html,body{
 
 .HBox{
   display: flex;
+}
+.nav{
+  background: papayawhip;
 }
 .navItem{
   margin: 4px 8px;
@@ -51,4 +57,11 @@ html,body{
 }
 .logoutBtn{
   cursor: pointer;
+  font-weight: bold;
+}
+.userInfo{
+  display: flex;
+}
+.userInfo div{
+  padding-left: 8px;
 }

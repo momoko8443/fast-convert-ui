@@ -35,7 +35,7 @@ function App() {
       <Router>
         <div id="container">
           <div id="header">
-            <Header title={"Welcome to Serai"}></Header>
+            <Header title={"Profile Faster Convertor"}></Header>
           </div>
           <div id="main">
             <Switch>

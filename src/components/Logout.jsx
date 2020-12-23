@@ -1,11 +1,15 @@
 import useToken from '../hooks/useToken';
 import iamService from '../services/iamService';
 export default function Logout(){
-    const {token} = useToken();
+    const {token,setToken} = useToken();
 
 
     function doLogout(){
-        alert('logout');
+        //alert('logout');
+        iamService.logout(token.access_token).then((result)=>{
+            setToken('');
+            window.location.href = '/';
+        });
     }
 
     if(!token){
