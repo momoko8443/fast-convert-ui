@@ -18,7 +18,7 @@ function Users() {
 }
 
 function App() {
-  const {token, setToken} = useToken();
+  const {token} = useToken();
   const path = window.location.pathname;
   if(path === '/iamCallback') {
     return (

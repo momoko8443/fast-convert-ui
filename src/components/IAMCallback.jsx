@@ -7,7 +7,7 @@ export default function IAMCallback(){
     const _hash = window.location.hash;
     const [hash] = useState(_hash);
 
-    const {token,setToken} = useToken();
+    const {setToken} = useToken();
     useEffect(()=>{
         const accessToken = jwtUtil.encode(hash);
         console.log(accessToken);
