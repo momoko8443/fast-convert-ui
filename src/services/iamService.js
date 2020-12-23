@@ -11,7 +11,7 @@ const loginURL = function() {
 
     console.info("redirect to iam service url=" + iamUrl);
     //window.location.href = iamUrl;
-    return loginURL;
+    return iamUrl;
 }
 
 const logout = function(access_token) {
@@ -45,7 +45,7 @@ const checkToken = function(access_token) {
                 "accept": "*/*"
             }
         }).then(function(result) {
-            if (result && (result.status == 200 || result.status == 201) ) {
+            if (result && (result.status === 200 || result.status === 201) ) {
                 resolve(result)
             } else {
                 throw result;
