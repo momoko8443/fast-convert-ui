@@ -4,9 +4,9 @@ import Navigator from "./Navigator";
 import { useState } from "react";
 function Header(props){
     const [navItems] = useState([
-        {name:'Home',path:'/home'},
-        {name:'About',path:'/about'},
-        {name:'Users',path:'/users'}
+        {name:'Tasks',path:'/tasks'},
+        {name:'Sites',path:'/sites'},
+        {name:'Pages',path:'/Pages'}
     ]);
     return (
         <div className="srHeader">

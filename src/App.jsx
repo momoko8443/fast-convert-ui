@@ -6,15 +6,16 @@ import IAMCallback from './components/IAMCallback';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import useToken from './hooks/useToken';
 import iamService from './services/iamService';
+import PagesView from './pages/Pages';
 
-function Home() {
-  return <h2>Home</h2>;
+function Tasks() {
+  return <h2>Tasks</h2>;
 }
-function About() {
-  return <h2>About</h2>
+function Sites() {
+  return <h2>Sites</h2>
 }
-function Users() {
-  return <h2>Users</h2>
+function Pages() {
+  return <PagesView></PagesView>
 }
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
   const path = window.location.pathname;
   if(path === '/iamCallback') {
     return (
-      <IAMCallback></IAMCallback>  
+      <IAMCallback></IAMCallback>
     )
   }
   if(!token){
@@ -39,14 +40,14 @@ function App() {
           </div>
           <div id="main">
             <Switch>
-              <Route path="/about">
-                <About></About>
+              <Route path="/tasks">
+                <Tasks></Tasks>
               </Route>
-              <Route path="/users">
-                <Users></Users>
+              <Route path="/sites">
+                <Sites></Sites>
               </Route>
-              <Route path="/">
-                <Home></Home>
+              <Route path="/pages">
+                <Pages></Pages>
               </Route>
             </Switch>
           </div>
