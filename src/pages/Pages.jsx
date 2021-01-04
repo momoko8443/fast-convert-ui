@@ -1,18 +1,32 @@
 import convertorService from '../services/convertorService';
 import ElementList from '../views/ElementList';
-import { useState } from 'react';
+import {useState } from 'react';
+import MigrationModal from './MigrationModal';
 export default function Pages(){
     const [website, setWebsite] = useState("https://www.esquel.com/from-seed-to-shirt");
     const [groups, setGroups] = useState([]);
+
+    const [selectedGroups, setSelectedGroups] = useState([]);
+
     function runHandler(){
         if (website) {
             const ws = encodeURI(website);
             convertorService.analyse(ws).then((result) => {
                 setGroups(result);
             });
-            console.log(ws);
         }
     }
+    const [showModal,setShowModal] = useState(false);
+
+    function openMigrationModal(){
+        setShowModal(true);
+    }
+
+    function selectedGroupsUpdatedHandler(){
+
+    }
+
+
     return (
         <div className="pageMain">
             <div className="websiteInput">
@@ -22,13 +36,15 @@ export default function Pages(){
             {groups.length > 0 && 
             <div>
                 <div>
-                    <button>Transfer</button>
+                    <MigrationModal isOpen={showModal} groups={selectedGroups} closeModal={()=>{setShowModal(false);}}></MigrationModal>
+                    <button className="migrateBtn" onClick={openMigrationModal}>Migrate</button>
                 </div>
                 <div>
-                    <ElementList groups={groups}></ElementList>
+                    <ElementList groups={groups} selectedGroupsUpdated={selectedGroupsUpdatedHandler}></ElementList>
                 </div>
             </div>
             }
+            
         </div>
     )
 } 

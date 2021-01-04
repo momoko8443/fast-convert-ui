@@ -2,7 +2,11 @@ import {useEffect, useState} from 'react';
 export default function ElementList(props){
     const [groups,setGroups] = useState([]);
     useEffect(()=>{
-        setGroups(props.groups);
+        const copyGroups = JSON.parse(JSON.stringify(props.groups));
+        copyGroups.forEach(group => {
+            group.selected = false
+        });
+        setGroups(copyGroups);
     },[props.groups])
 
     // function getImageOriginalSize(e){
@@ -14,7 +18,6 @@ export default function ElementList(props){
         if (!src) {
             return "";
         }
-        console.log(src);
         if (src.startsWith("//")) {
             return "https:" + src;
         } else if (src.startsWith("/")) {
@@ -23,10 +26,14 @@ export default function ElementList(props){
         return src;
     }
 
+    function checkboxChangedHandler(e){
+        console.log(e);
+    }
+
     return (
         <div>
-            {groups.map((group) => 
-                <div className="group">
+            {groups.map((group, index) => 
+                <div className="group" key={index}>
                     <div className="imgGroup">
                         <img
                             className="thumbnail"
@@ -37,12 +44,12 @@ export default function ElementList(props){
                     
                     <div className="textGroup">
                         {group.texts.map((text)=>
-                            <div className="text">{ text }</div>
+                            <div className="text" key={text}>{ text }</div>
                         )}                   
                     </div>
 
                     <div className="checkboxBox">
-                        <input type="checkbox"></input>
+                        <input type="checkbox" checked={group.selected} onChange={checkboxChangedHandler}></input>
                     </div>
                 </div>
             )}

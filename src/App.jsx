@@ -21,11 +21,11 @@ function Pages() {
 }
 
 function App() {
-  const { token } = useToken();
+  const { token , setToken} = useToken();
 
   axios.interceptors.request.use((request) => {
     if (token) {
-      if (request.headers.Authorization == undefined || request.headers.Authorization == '') {
+      if (request.headers.Authorization === undefined || request.headers.Authorization === '') {
         request.headers['Authorization'] = "Serai " + token.access_token
       }
     }
@@ -40,6 +40,20 @@ function App() {
     return request;
   }, (error) => {
     console.error(error);
+    return Promise.reject(error);
+  });
+
+  axios.interceptors.response.use((response) => {
+    return response;
+  }, (error) => {
+    console.error(error);
+    if (error.response && error.response.status && error.response.status + "" === '403') {
+      console.info('=========tokenExpired')
+      setToken(null);
+      //Promise.reject(error);
+      const iamLoginURL = iamService.loginURL();
+      window.location.href = iamLoginURL;
+    }
     return Promise.reject(error);
   });
 
