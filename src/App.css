@@ -77,17 +77,6 @@ html,body{
   padding:10px 20px 10px 0;
 }
 
-.websiteInput input{
-  line-height: 28px;
-  font-size: 28px;
-  width:80%;
-}
-.websiteInput button{
-  font-size: 24px;
-  margin-left: 20px;
-  padding:2px 10px;
-}
-
 .elementGroups{
   padding: 20px;
 }
@@ -139,4 +128,7 @@ html,body{
 
 .h-gap-4{
   padding-right: 4px;
+}
+
+.migration-btn{
 }

@@ -2,6 +2,9 @@ import convertorService from '../services/convertorService';
 import ElementList from '../views/ElementList';
 import {useState } from 'react';
 import MigrationModal from './MigrationModal';
+import {Input, Button} from 'antd';
+import {CloudUploadOutlined} from '@ant-design/icons';
+
 export default function Pages(){
     const [website, setWebsite] = useState("https://www.esquel.com/from-seed-to-shirt");
     const [groups, setGroups] = useState([]);
@@ -30,22 +33,21 @@ export default function Pages(){
 
     return (
         <div className="pageMain">
-            <div className="websiteInput">
-                <input type="text" value={website} onChange={e => setWebsite(e.target.value)}></input>
-                <button onClick={runHandler}>Analyse</button>
+            <div className="websiteInput hbox">
+                <Input style={{marginRight:'8px'}} type="text" value={website} onChange={e => setWebsite(e.target.value)}></Input>
+                <Button type="primary" onClick={runHandler}>Analyse</Button>
             </div>
             {groups.length > 0 && 
             <div>
-                <div>
-                    <MigrationModal isOpen={showModal} groups={selectedGroups} closeModal={()=>{setShowModal(false);}}></MigrationModal>
-                    <button className="migrateBtn" onClick={openMigrationModal}>Migrate</button>
+                <div className="hbox-r" style={{  position: 'fixed',bottom:'50px',right: '60px'}}>
+                    <Button size="large" type="primary" className="migration-btn" icon={<CloudUploadOutlined />} shape="round" onClick={openMigrationModal}>Migrate</Button>
                 </div>
-                <div>
+                <div className="v-gap-4">
                     <ElementList groups={groups} selectedGroupsUpdated={selectedGroupsUpdatedHandler}></ElementList>
                 </div>
             </div>
             }
-            
+            <MigrationModal isOpen={showModal} groups={selectedGroups} closeModal={()=>{setShowModal(false);}}></MigrationModal>
         </div>
     )
 } 
