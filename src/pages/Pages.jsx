@@ -22,8 +22,9 @@ export default function Pages(){
         setShowModal(true);
     }
 
-    function selectedGroupsUpdatedHandler(){
-
+    function selectedGroupsUpdatedHandler(groups){
+        console.log(groups);
+        setSelectedGroups(groups);
     }
 
 

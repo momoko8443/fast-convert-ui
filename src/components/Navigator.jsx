@@ -9,7 +9,7 @@ export default function Navigator(props){
         <Link className="nav navItem" key={nav.path} to={nav.path}>{nav.name}</Link>
     )
     return(
-        <div className="nav HBox">
+        <div className="nav hbox">
             {navList}
         </div>
     );

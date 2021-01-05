@@ -1,33 +1,31 @@
 import { useEffect, useState } from 'react';
-import Modal from 'react-modal';
+
 import delegateUserService from "../services/delegateUserService";
 import useToken from "../hooks/useToken";
 import types from "../mocks/showCaseType";
+import { Form, Modal,Select } from 'antd';
 
-Modal.setAppElement('#root');
-
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
-    }
+const { Option } = Select;
+const layout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 18 },
+};
+const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
 };
 
+
 export default function MigrationModal(props) {
-    const {token} = useToken();
-    const [companies,setCompanies] = useState([]);
-    useEffect(()=>{
-        delegateUserService.getDelegatedCompanies(token.email).then((result)=>{
-            if(result && result.length > 0){
+    const { token } = useToken();
+    const [companies, setCompanies] = useState([]);
+    useEffect(() => {
+        delegateUserService.getDelegatedCompanies(token.email).then((result) => {
+            if (result && result.length > 0) {
                 setCompanies(result);
                 setSelectedCompany(result[0].accessedOrganizationId);
             }
         });
-    },[token.email]);
+    }, [token.email]);
 
     const [selectedCompany, setSelectedCompany] = useState();
 
@@ -35,67 +33,72 @@ export default function MigrationModal(props) {
     const [selectedType, setSelectedType] = useState(sectionTypes[0].value);
 
 
-    function companiesChangedHandler(e){
-        console.log(e.target.value);
-        setSelectedCompany(e.target.value);
+    function companiesChangedHandler(value) {
+        //console.log(e.target.value);
+        setSelectedCompany(value);
     }
-    function sectionTypesChangedHandler(e){
-        console.log(e.target.value);
-        setSelectedType(e.target.value);
-    }
-
-    function submitForm(){
-        console.log(selectedCompany);
+    function sectionTypesChangedHandler(value) {
+        //console.log(e.target.value);
+        setSelectedType(value);
     }
     return (
         <Modal
-            isOpen={props.isOpen}
-            onRequestClose={props.closeModal}
-            style={customStyles}
-            contentLabel="Example Modal"
+            visible={props.isOpen}
+            onCancel={props.closeModal}
+            title="Migration"
+            
         >
-            <button onClick={props.closeModal}>close</button>
-            <form>
-                <label>Target company:
-                    <select value={selectedCompany} onChange={companiesChangedHandler}>
+            <Form {...layout}>
+                <Form.Item
+                    label="Target company"
+                    name="targetCompany"
+                    size="large"
+                >
+                    <Select initialValues={[selectedCompany]} onChange={companiesChangedHandler}>
                         {
-                            companies.map((company)=>{
-                                return <option value={company.accessedOrganizationId} key={company.accessedOrganizationId}>{company.accessedOrganizationName}</option>
+                            companies.map((company) => {
+                                return <Option value={company.accessedOrganizationId} key={company.accessedOrganizationId}>{company.accessedOrganizationName}</Option>
                             })
                         }
-                    </select>
-                </label>
+                    </Select>
+                </Form.Item>
 
-                <label>Section type:
-                    <select value={selectedType} onChange={sectionTypesChangedHandler}>
+                <Form.Item
+                    label="Section type"
+                    name="sectionType"
+                >
+                    <Select initialValues={[selectedType]} onChange={sectionTypesChangedHandler}>
                         {
-                            sectionTypes.map((type)=>{
-                                return <option value={type.value} key={type.value}>{type.name}</option>
+                            sectionTypes.map((type) => {
+                                return <Option value={type.value} key={type.value}>{type.name}</Option>
                             })
                         }
-                    </select>
-                </label>
-                {/* <div className="thumbnailGroup">
-                    <div>
-                        {
-                            groups.map((group)=>{
-                                return (
-                                <>
-                                    <div>
-                                        <img src={group.image} className="thumbnail"></img>
-                                    </div>
-                                    <div>
-                                        <span>title:</span>{groups.text[0]}
-                                        <p>{groups.slice(1,-1).join('')}</p>
-                                    </div>
-                                </>
-                                );
-                            })
-                        }
-                    </div>
-                </div> */}
-            </form>
-            <button onClick={submitForm}>Submit</button>
+                    </Select>
+                </Form.Item>
+            </Form>
+            <div className="thumbnailGroup">
+                {
+                    props.groups.map((group) => {
+                        return (
+                            <div className="hbox under-line v-gap-4" key={group.image}>
+                                <div className="h-gap-4">
+                                    <img src={group.image} alt={group.image} className="thumbnail-sm"></img>
+                                </div>
+                                <div>
+                                    <span>title:</span>{group.texts[0]}
+                                    <p>{group.texts.slice(1).join('')}</p>
+                                </div>
+                            </div>
+                        );
+                    })
+                }
+            </div>
+            {/* <div className="hbox-r v-gap-4">
+                <div className="h-gap-4">
+                    <Button type="primary" onClick={submitForm}>Submit</Button>
+                </div>
+                <Button onClick={submitForm}>Cancel</Button>
+            </div> */}
         </Modal>
     );
 }

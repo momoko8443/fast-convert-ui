@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {Checkbox} from 'antd';
 export default function ElementList(props){
     const [groups,setGroups] = useState([]);
     useEffect(()=>{
@@ -26,8 +27,14 @@ export default function ElementList(props){
         return src;
     }
 
-    function checkboxChangedHandler(e){
-        console.log(e);
+    function checkboxChangedHandler(e, group){
+        //console.log(e.target.checked);
+        //console.log(group);
+        group.selected = e.target.checked;
+        const selectedGroups = groups.filter(g => g.selected === true);
+        if(props.selectedGroupsUpdated){
+            props.selectedGroupsUpdated(selectedGroups);
+        }
     }
 
     return (
@@ -49,7 +56,8 @@ export default function ElementList(props){
                     </div>
 
                     <div className="checkboxBox">
-                        <input type="checkbox" checked={group.selected} onChange={checkboxChangedHandler}></input>
+                        <Checkbox onChange={(e)=>{checkboxChangedHandler(e, group)}}></Checkbox>
+                        {/* <input type="checkbox" checked={group.selected} onChange={checkboxChangedHandler}></input> */}
                     </div>
                 </div>
             )}
