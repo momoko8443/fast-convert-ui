@@ -1,6 +1,6 @@
 function Footer(props){
     return (
-        <footer>
+        <footer className="hbox">
             <div>
                 Serai Terms of Use and Privacy Policy.
             </div>

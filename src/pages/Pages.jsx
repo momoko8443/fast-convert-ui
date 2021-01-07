@@ -30,12 +30,18 @@ export default function Pages(){
         setSelectedGroups(groups);
     }
 
+    function submitHandler(images,companyId,type){
+        convertorService.uploadImages(images,companyId,type).then((result)=>{
+
+        })
+    }
+
 
     return (
         <div className="pageMain">
             <div className="websiteInput hbox">
                 <Input style={{marginRight:'8px'}} type="text" value={website} onChange={e => setWebsite(e.target.value)}></Input>
-                <Button type="primary" onClick={runHandler}>Analyse</Button>
+                <Button onClick={runHandler}>Analyse</Button>
             </div>
             {groups.length > 0 && 
             <div>
@@ -47,7 +53,7 @@ export default function Pages(){
                 </div>
             </div>
             }
-            <MigrationModal isOpen={showModal} groups={selectedGroups} closeModal={()=>{setShowModal(false);}}></MigrationModal>
+            <MigrationModal isOpen={showModal} groups={selectedGroups} onSubmit={submitHandler} closeModal={()=>{setShowModal(false);}}></MigrationModal>
         </div>
     )
 } 

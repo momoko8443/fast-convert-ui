@@ -22,7 +22,7 @@ const analyse = function(url) {
 const uploadImages = function(images,companyId,showCaseType) {
     return new Promise(function (resolve, reject) {
         axios({
-            url: process.env.REACT_APP_TOOL_AUTH_URL + '/images',
+            url: process.env.REACT_APP_TOOL_AUTH_URL + '/images2',
             method: 'post',
             data:{
                 'images':images,

@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import useToken from './hooks/useToken';
 import iamService from './services/iamService';
 import PagesView from './pages/Pages';
+import SitesView from './pages/Sites';
 import axios from 'axios';
 
 
@@ -14,7 +15,7 @@ function Tasks() {
   return <h2>Tasks</h2>;
 }
 function Sites() {
-  return <h2>Sites</h2>
+  return <SitesView></SitesView>
 }
 function Pages() {
   return <PagesView></PagesView>
@@ -73,7 +74,7 @@ function App() {
       <Router>
         <div id="container">
           <div id="header">
-            <Header title={"Profile Faster Convertor"}></Header>
+            <Header title={"Profile Fast Convertor"}></Header>
           </div>
           <div id="main">
             <Switch>

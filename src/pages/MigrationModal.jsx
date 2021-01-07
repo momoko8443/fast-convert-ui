@@ -62,7 +62,12 @@ export default function MigrationModal(props) {
 
     const [groups, setGroups] = useState([]);
     useEffect(()=>{
-        setGroups(props.groups);
+        const newGroups = [];
+        props.groups.forEach((group)=>{
+            const newGroup = {image: group.image, title:group.texts[0],description:group.texts.slice(1).join('')};
+            newGroups.push(newGroup);
+        })
+        setGroups(newGroups);
     },[props.groups]);
 
     function companiesChangedHandler(value) {
@@ -85,12 +90,28 @@ export default function MigrationModal(props) {
           result.source.index,
           result.destination.index
         );
-    
+        console.log('items',items);
         setGroups(items);
-      }
+        
+    }
+
+    function editTitleHandler(e,index){
+        groups[index].title = e.target.innerText;
+        setGroups(groups);
+    }
+    function editDescriptionHandler(e,index){
+        groups[index].description = e.target.innerText;
+        setGroups(groups);
+    }
+
+    function submitHandler(){
+        console.log(groups);
+        props.onSubmit && props.onSubmit(groups,selectedCompany,selectedType);
+    }
     return (
         <Modal
             visible={props.isOpen}
+            onOk={submitHandler}
             onCancel={props.closeModal}
             title="Migration"
             width="800px"
@@ -152,9 +173,13 @@ export default function MigrationModal(props) {
                                                             <img src={group.image} alt={group.image} className="thumbnail-sm"></img>
                                                         </div>
                                                         <div>
-                                                            <span>title:</span>{group.texts[0]}
-                                                            <p>{group.texts.slice(1).join('')}</p>
-                                                        </div>
+                                                            <div>
+                                                                <p contenteditable="true" onInput={(e)=>{editTitleHandler(e,index)}}>{group.title}</p>
+                                                            </div>
+                                                            <div>     
+                                                                <p contenteditable="true" onInput={(e)=>{editDescriptionHandler(e,index)}}>{group.description}</p>
+                                                            </div>
+                                                        </div>   
                                                     </div>
                                                 )}
                                             {/* </div> */}

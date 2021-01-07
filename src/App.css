@@ -30,6 +30,9 @@ html,body{
 #footer{
   background: #999;
   flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 }
 
 
