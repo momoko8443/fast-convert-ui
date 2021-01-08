@@ -6,19 +6,20 @@ import IAMCallback from './components/IAMCallback';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import useToken from './hooks/useToken';
 import iamService from './services/iamService';
-import PagesView from './pages/Pages';
+import ElementsView from './pages/Elements';
 import SitesView from './pages/Sites';
+import PagesView from './pages/Pages';
 import axios from 'axios';
 
 
-function Tasks() {
-  return <h2>Tasks</h2>;
+function Pages() {
+  return <PagesView></PagesView>;
 }
 function Sites() {
   return <SitesView></SitesView>
 }
-function Pages() {
-  return <PagesView></PagesView>
+function Elements() {
+  return <ElementsView></ElementsView>
 }
 
 function App() {
@@ -78,14 +79,14 @@ function App() {
           </div>
           <div id="main">
             <Switch>
-              <Route path="/tasks">
-                <Tasks></Tasks>
-              </Route>
               <Route path="/sites">
                 <Sites></Sites>
               </Route>
-              <Route path="/pages">
+              <Route path="/pages/:domain">
                 <Pages></Pages>
+              </Route>
+              <Route path="/elements/:id">
+                <Elements></Elements>
               </Route>
             </Switch>
           </div>
