@@ -10,6 +10,7 @@ import ElementsView from './pages/Elements';
 import SitesView from './pages/Sites';
 import PagesView from './pages/Pages';
 import axios from 'axios';
+import '@serai/profile-ui-framework';
 
 
 function Pages() {

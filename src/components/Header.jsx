@@ -1,6 +1,8 @@
 import Logout from "./Logout";
 import HelloUser from "./HelloUser";
 import Navigator from "./Navigator";
+import NavBar from './NavBar';
+import NavBarMobile from './NavBarMobile';
 import { useState } from "react";
 function Header(props){
     const [navItems] = useState([
@@ -17,7 +19,9 @@ function Header(props){
                     <HelloUser></HelloUser>
                     <Logout></Logout>
                 </div>
-            </div>    
+            </div>   
+            <NavBar></NavBar> 
+            <NavBarMobile></NavBarMobile>
             <Navigator navItems={navItems}></Navigator>       
         </div>
     );
